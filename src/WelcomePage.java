@@ -28,7 +28,7 @@ public class WelcomePage extends JFrame {
 	private JTextField textField;
 	private JComboBox<String> comboBox;
 	private String []options;
-
+	private static String userSymbol,pcSymbol;
 	private int mousePosX,mousePosY;
 	
 	/**
@@ -122,9 +122,10 @@ public class WelcomePage extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(notNull(textField)&&notNull(comboBox)) {
+					//The Next 
+					setSymbolForUser(comboBox.getSelectedItem().toString().equalsIgnoreCase("X")?"X":"O");
+					setSymbolForComputer(comboBox.getSelectedItem().toString().equalsIgnoreCase("X")?"O":"X");
 					new GameEngine().setVisible(true);
-					GameEngine gameEngine=new GameEngine();
-					
 					dispose();
 				}
 				if(!(notNull(textField)&&notNull(comboBox))){
@@ -165,14 +166,31 @@ public class WelcomePage extends JFrame {
 		
 		setUndecorated(true);
 	}
-
+	/*
+	 Below are two overloaded functions used to check if the textField(For Name) and comboBox are not seleted
+	 The Below Method returns false if name is null*/
 
 	private Boolean notNull(JTextField textField) {
 		if(textField.getText().equalsIgnoreCase(""))return false;
 		return true;
 	}
+	//This method returns false if The combobox is set to Select
 	private Boolean notNull(JComboBox comboBox) {
 		if(comboBox.getSelectedItem().equals("Select"))return false;
 		return true;
+	}
+	
+	public static String returnUserSymbol() {
+		return userSymbol;
+	}
+
+	public static String returnComputerSymbol() {
+		return pcSymbol;
+	}
+	private void setSymbolForComputer(String symbol) {
+		pcSymbol=symbol;
+	}
+	private void setSymbolForUser(String symbol) {
+		userSymbol=symbol;
 	}
 }
