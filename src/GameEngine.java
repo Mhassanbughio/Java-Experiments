@@ -6,10 +6,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 
 public class GameEngine extends JFrame {
@@ -81,6 +84,8 @@ public class GameEngine extends JFrame {
 		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button2.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button2);
+				computerGamePlay();
 			}
 		});
 		button2.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -92,6 +97,8 @@ public class GameEngine extends JFrame {
 		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button3.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button3);
+				computerGamePlay();
 			}
 		});
 		button3.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -103,6 +110,8 @@ public class GameEngine extends JFrame {
 		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button4.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button4);
+				computerGamePlay();
 			}
 		});
 		button4.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -114,6 +123,8 @@ public class GameEngine extends JFrame {
 		button6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button6.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button6);
+				computerGamePlay();
 			}
 		});
 		button6.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -125,6 +136,8 @@ public class GameEngine extends JFrame {
 		button5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button5.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button5);
+				computerGamePlay();
 			}
 		});
 		button5.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -136,6 +149,8 @@ public class GameEngine extends JFrame {
 		button8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button8.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button8);
+				computerGamePlay();
 			}
 		});
 		button8.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -147,6 +162,8 @@ public class GameEngine extends JFrame {
 		button9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button9.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button9);
+				computerGamePlay();
 			}
 		});
 		button9.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -158,6 +175,8 @@ public class GameEngine extends JFrame {
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button1.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button1);
+				computerGamePlay();
 			}
 		});
 		button1.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -169,6 +188,9 @@ public class GameEngine extends JFrame {
 		button7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				button7.setText(WelcomePage.returnUserSymbol());
+				buttonList.remove(button7);
+				computerGamePlay();
+				
 			}
 		});
 		button7.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -212,5 +234,13 @@ public class GameEngine extends JFrame {
 		for(JButton button:buttons) {
 			button.setText("-");
 		}
+	}
+	private void computerGamePlay() {
+		
+		Random random=new Random();
+		int index=random.nextInt(buttonList.size());
+		buttonList.get(index).setText(WelcomePage.returnComputerSymbol());
+		buttonList.remove(index);
+		
 	}
 }
