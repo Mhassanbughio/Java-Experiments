@@ -25,7 +25,7 @@ public class WelcomePage extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private static JTextField textField;
 	private JComboBox<String> comboBox;
 	private String []options;
 	private static String userSymbol,pcSymbol;
@@ -128,16 +128,18 @@ public class WelcomePage extends JFrame {
 					new GameEngine().setVisible(true);
 					dispose();
 				}
-				if(!(notNull(textField)&&notNull(comboBox))){
-					JOptionPane.showConfirmDialog(null,"Enter Both Symbol and Name", "Error", JOptionPane.PLAIN_MESSAGE);
-				}
-				else if(!notNull(textField)) {
+				else {
+				
+				 if(!notNull(textField)) {
 					JOptionPane.showConfirmDialog(null,"Please Enter Name", "Name Error", JOptionPane.PLAIN_MESSAGE);
 				}
 				else if(!notNull(comboBox)) {
 					JOptionPane.showConfirmDialog(null,"Please Select A Symbol", "Symbol Error", JOptionPane.PLAIN_MESSAGE);
 				}
-				
+				else{
+						JOptionPane.showConfirmDialog(null,"Enter Both Symbol and Name", "Error", JOptionPane.PLAIN_MESSAGE);
+					}
+				}
 			}
 			}
 		);
@@ -175,13 +177,16 @@ public class WelcomePage extends JFrame {
 		return true;
 	}
 	//This method returns false if The combobox is set to Select
-	private Boolean notNull(JComboBox comboBox) {
+	private Boolean notNull(JComboBox<String> comboBox) {
 		if(comboBox.getSelectedItem().equals("Select"))return false;
 		return true;
 	}
 	
 	public static String returnUserSymbol() {
 		return userSymbol;
+	}
+	public static String returnUserName() {
+		return textField.getText().toString();
 	}
 
 	public static String returnComputerSymbol() {
@@ -193,4 +198,5 @@ public class WelcomePage extends JFrame {
 	private void setSymbolForUser(String symbol) {
 		userSymbol=symbol;
 	}
+	
 }

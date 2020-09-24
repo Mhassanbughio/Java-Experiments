@@ -3,20 +3,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.MouseMotionAdapter;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
+import java.awt.event.ActionEvent;
 
 public class GameEngine extends JFrame {
 
@@ -25,12 +19,7 @@ public class GameEngine extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int xMouse,yMouse;
-	private Random selectRandomBlock;
-	private JButton []btnNewButtons; 
-	ArrayList<JButton> buttons ;
-	//HashMap<JButton,> hashMap;
-	private static int computerCounter=9;
+	private ArrayList<JButton> buttonList;
 	/**
 	 * Launch the application.
 	 */
@@ -50,244 +39,178 @@ public class GameEngine extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("unchecked")
+	
 	public GameEngine() {
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 500);
+		setBounds(100, 100, 600, 450);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(127, 255, 212));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		btnNewButtons=new JButton[11];
-		buttons=new ArrayList();
+		
+		buttonList=new ArrayList<JButton>();
 		
 		JPanel panel = new JPanel();
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				xMouse=e.getX();
-				yMouse=e.getY();
-			}
-		});
-		panel.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				int currentX=e.getXOnScreen(),currentY=e.getYOnScreen();
-				setLocation(currentX-xMouse,currentY-yMouse);
-			}
-		});
-		panel.setBackground(new Color(72, 209, 204));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel.setBackground(new Color(255, 140, 0));
 		panel.setBounds(0, 0, 600, 41);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Tic Tac Toe");
-		lblNewLabel.setForeground(new Color(255, 250, 250));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(10, 10, 227, 31);
-		panel.add(lblNewLabel);
+		JLabel welcomeUserLabel = new JLabel(String.format("%s vs Computer","Dyslon"));
+		welcomeUserLabel.setForeground(new Color(255, 250, 250));
+		welcomeUserLabel.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 15));
+		welcomeUserLabel.setBounds(10, 10, 398, 31);
+		panel.add(welcomeUserLabel);
 		
-		btnNewButtons[0] = new JButton("Cancel");
-		btnNewButtons[0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-			}
-			
-		});
-		btnNewButtons[0].setOpaque(true);
-		btnNewButtons[0].setBackground(new Color(255, 250, 250));
-		btnNewButtons[0].setBounds(500, 78, 90, 30);
-		contentPane.add(btnNewButtons[0]);
-		
-				
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 128, 128), 2));
-		panel_1.setBackground(new Color(127, 255, 212));
-		panel_1.setBounds(31, 46, 440, 444);
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel_1.setBackground(new Color(255, 165, 0));
+		panel_1.setBounds(0, 40, 600, 410);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		btnNewButtons[1] = new JButton("-");
-		btnNewButtons[1].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[1].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
-			}
-		});
-		btnNewButtons[1].setBackground(new Color(144, 238, 144));
-		btnNewButtons[1].setOpaque(true);
-		btnNewButtons[1].setBounds(0, 0, 148, 148);
-		panel_1.add(btnNewButtons[1]);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 165, 0));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(10, 10, 390, 390);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
 		
-		 btnNewButtons[2] = new JButton("-");
-		btnNewButtons[2].addActionListener(new ActionListener() {
+		JButton button2 = new JButton("-");
+		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[2].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button2.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[2].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[2].setBounds(0, 147, 148, 148);
-		btnNewButtons[2].setBackground(new Color(144, 238, 144));
-		btnNewButtons[2].setOpaque(true);
-		panel_1.add(btnNewButtons[2]);
+		button2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button2.setBackground(new Color(255, 140, 0));
+		button2.setBounds(0, 129, 130, 130);
+		panel_2.add(button2);
 		
-		 btnNewButtons[3] = new JButton("-");
-		btnNewButtons[3].addActionListener(new ActionListener() {
+		JButton button3 = new JButton("-");
+		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[3].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button3.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[3].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[3].setBackground(new Color(144, 238, 144));
-		btnNewButtons[3].setOpaque(true);
-		btnNewButtons[3].setBounds(0, 294, 148, 148);
-		panel_1.add(btnNewButtons[3]);
+		button3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button3.setBackground(new Color(255, 140, 0));
+		button3.setBounds(0, 258, 130, 130);
+		panel_2.add(button3);
 		
-		 btnNewButtons[4] = new JButton("-");
-		btnNewButtons[4].addActionListener(new ActionListener() {
+		JButton button4 = new JButton("-");
+		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[4].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button4.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[4].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[4].setBackground(new Color(144, 238, 144));
-		btnNewButtons[4].setOpaque(true);
-		btnNewButtons[4].setBounds(146, 0, 148, 148);
-		panel_1.add(btnNewButtons[4]);
+		button4.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button4.setBackground(new Color(255, 140, 0));
+		button4.setBounds(129, 0, 130, 130);
+		panel_2.add(button4);
 		
-		 btnNewButtons[5] = new JButton("-");
-		btnNewButtons[5].addActionListener(new ActionListener() {
+		JButton button6 = new JButton("-");
+		button6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[5].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button6.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[5].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[5].setBackground(new Color(144, 238, 144));
-		btnNewButtons[5].setOpaque(true);
-		btnNewButtons[5].setBounds(146, 147, 148, 148);
-		panel_1.add(btnNewButtons[5]);
+		button6.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button6.setBackground(new Color(255, 140, 0));
+		button6.setBounds(129, 258, 130, 130);
+		panel_2.add(button6);
 		
-		 btnNewButtons[6] = new JButton("-");
-		btnNewButtons[6].addActionListener(new ActionListener() {
+		JButton button5 = new JButton("-");
+		button5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[6].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button5.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[6].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[6].setBackground(new Color(144, 238, 144));
-		btnNewButtons[6].setOpaque(true);
-		btnNewButtons[6].setBounds(146, 295, 148, 148);
-		panel_1.add(btnNewButtons[6]);
+		button5.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button5.setBackground(new Color(255, 140, 0));
+		button5.setBounds(129, 129, 130, 130);
+		panel_2.add(button5);
 		
-		 btnNewButtons[7] = new JButton("-");
-		btnNewButtons[7].addActionListener(new ActionListener() {
+		JButton button8 = new JButton("-");
+		button8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[7].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button8.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[7].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[7].setBackground(new Color(144, 238, 144));
-		btnNewButtons[7].setOpaque(true);
-		btnNewButtons[7].setBounds(293, 0, 148, 148);
-		panel_1.add(btnNewButtons[7]);
+		button8.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button8.setBackground(new Color(255, 140, 0));
+		button8.setBounds(259, 129, 130, 130);
+		panel_2.add(button8);
 		
-		btnNewButtons[8] = new JButton("-");
-		btnNewButtons[8].addActionListener(new ActionListener() {
+		JButton button9 = new JButton("-");
+		button9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[8].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button9.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[8].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[8].setBackground(new Color(144, 238, 144));
-		btnNewButtons[8].setOpaque(true);
-		btnNewButtons[8].setBounds(293, 147, 148, 148);
-		panel_1.add(btnNewButtons[8]);
+		button9.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button9.setBackground(new Color(255, 140, 0));
+		button9.setBounds(259, 258, 130, 130);
+		panel_2.add(button9);
 		
-		 btnNewButtons[9] = new JButton("-");
-		btnNewButtons[9].addActionListener(new ActionListener() {
+		JButton button1 = new JButton("-");
+		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtons[9].setText(WelcomePage.returnUserSymbol());
-				System.out.println(WelcomePage.returnUserSymbol());
-				computerGamePlay(computerCounter);
-				computerCounter--; 
+				button1.setText(WelcomePage.returnUserSymbol());
 			}
 		});
-		btnNewButtons[9].setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButtons[9].setBackground(new Color(144, 238, 144));
-		btnNewButtons[9].setOpaque(true);
-		btnNewButtons[9].setBounds(293, 294, 148, 148);
-		panel_1.add(btnNewButtons[9]);
+		button1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button1.setBackground(new Color(255, 140, 0));
+		button1.setBounds(0, 0, 130, 130);
+		panel_2.add(button1);
+		
+		JButton button7 = new JButton("-");
+		button7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				button7.setText(WelcomePage.returnUserSymbol());
+			}
+		});
+		button7.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button7.setBackground(new Color(255, 140, 0));
+		button7.setBounds(259, 0, 130, 130);
+		panel_2.add(button7);
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		cancelButton.setBounds(446, 31, 95, 35);
+		panel_1.add(cancelButton);
+		
+		buttonList.add(button1);
+		buttonList.add(button2);
+		buttonList.add(button3);
+		buttonList.add(button4);
+		buttonList.add(button5);
+		buttonList.add(button6);
+		buttonList.add(button7);
+		buttonList.add(button8);
+		buttonList.add(button9);
+		
+		JButton reset = new JButton("Reset");
+		reset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setNull(buttonList);
+			}
+		});
+		reset.setFont(new Font("Tahoma", Font.BOLD, 15));
+		reset.setBounds(446, 106, 95, 35);
+		panel_1.add(reset);
 		setUndecorated(true);
-		
-		
-		btnNewButtons[10] = new JButton("Reset");
-		btnNewButtons[10].setBackground(new Color(255, 250, 250));
-		btnNewButtons[10].setOpaque(true);
-		btnNewButtons[10].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*when the reset button is pressed, all the buttons will change to -
-				 * Or in other words the game will be reseted*/
-				 setNull(btnNewButtons[9]);
-				 setNull(btnNewButtons[8]);
-				 setNull(btnNewButtons[7]);
-				 setNull(btnNewButtons[6]);
-				 setNull(btnNewButtons[5]);
-				 setNull(btnNewButtons[4]);
-				 setNull(btnNewButtons[3]);
-				 setNull(btnNewButtons[2]);
-				 setNull(btnNewButtons[1]);
-			}
-		});
-		btnNewButtons[10].setBounds(500, 134, 90, 30);
-		contentPane.add(btnNewButtons[10]);
-		buttons.add(btnNewButtons[9]);
-		buttons.add(btnNewButtons[8]);
-		buttons.add(btnNewButtons[7]);
-		buttons.add(btnNewButtons[6]);
-		buttons.add(btnNewButtons[5]);
-		buttons.add(btnNewButtons[4]);
-		buttons.add(btnNewButtons[3]);
-		buttons.add(btnNewButtons[2]);
-		buttons.add(btnNewButtons[1]);
 	}
-	public void checkWinner(JButton jb1,JButton jb2,JButton jb3) {
-		if(jb1.getText().equalsIgnoreCase(jb2.getText())&&jb2.getText().equalsIgnoreCase(jb3.getText())) {
-			JOptionPane.showConfirmDialog(null, message);
+	
+	private void setNull(ArrayList<JButton> buttons) {
+		for(JButton button:buttons) {
+			button.setText("-");
 		}
-	}
-	private void setNull(JButton button) {
-		button.setText("-");
-	}
-	private void computerGamePlay(int possible_combo) {
-		selectRandomBlock =new Random();
-		int index=selectRandomBlock.nextInt(possible_combo)+1;
-		buttons.get(index).setText(WelcomePage.returnComputerSymbol());
-		buttons.remove(index);
 	}
 }
